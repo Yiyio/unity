@@ -6,7 +6,7 @@ public class TextController : MonoBehaviour {
 
 	public Text text;
 
-	private enum States {cell, mirror, sheets_0, lock_0, sheets_1, lock_1, cell_mirror, freedom};
+	private enum States {cell, mirror, sheets_0, lock_0, sheets_1, lock_1, cell_mirror, corridor_0};
 	private States myState;
 
 	// Use this for initialization
@@ -17,17 +17,17 @@ public class TextController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		print (myState);
-		if(myState == States.cell)	{state_cell();}
-		else if (myState == States.sheets_0)	{state_sheets_0();} 
-		else if (myState == States.sheets_1)	{state_sheets_1();} 
-		else if (myState == States.lock_0)	{state_lock_0();} 
-		else if (myState == States.lock_1)	{state_lock_1();} 
-		else if (myState == States.mirror)	{state_mirror();} 
-		else if (myState == States.cell_mirror)	{state_cell_mirror();} 
-		else if (myState == States.freedom)	{state_freedom();} 
+		if      (myState == States.cell)		{cell();}
+		else if (myState == States.sheets_0)	{sheets_0();} 
+		else if (myState == States.sheets_1)	{sheets_1();} 
+		else if (myState == States.lock_0)		{lock_0();} 
+		else if (myState == States.lock_1)		{lock_1();} 
+		else if (myState == States.mirror)		{mirror();} 
+		else if (myState == States.cell_mirror)	{cell_mirror();} 
+		else if (myState == States.corridor_0)	{corridor_0();} 
 	}
 
-	void state_cell(){
+	void cell(){
 		text.text = "You wake up feeling dizzy and disoriented. The air is damp, and the little light comes " +
 			"into the room from a very small window at the top of your cell. " +
 				"Looking around, you don't see many things in your cell: a wall mirror, dirty sheets on the bed, " + 
@@ -43,7 +43,7 @@ public class TextController : MonoBehaviour {
 		}
 	} 
 
-	void state_mirror(){
+	void mirror(){
 		text.text = "Mirror Mirror on the wall \n\n True hope lies beyond the coast \n\n You're a damned kind can't you see \n\n That the winds will change\n\n " +
 	 				"Press G to get the mirror, or R to go back to your cell";
 
@@ -56,7 +56,7 @@ public class TextController : MonoBehaviour {
 
 
 
-	void state_cell_mirror(){
+	void cell_mirror(){
 		text.text = "You are still in your cell. Something feels different, as if a breath of fresh air had " +
 			"come suddenly from the depths of the dungeon, giving you some hope\n\n" + 
 
@@ -69,7 +69,7 @@ public class TextController : MonoBehaviour {
 		}
 	}
 
-	void state_sheets_0(){
+	void sheets_0(){
 		text.text = "Not quite the kind of bed you had back at your parent's house. " +
 			         "Thanks god they taught you how to make the bed, I guess. \n\n" +
 				     "Press R to return to roaming your cell";
@@ -77,7 +77,7 @@ public class TextController : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.R)){
 			myState = States.cell;
 		}
-	} 	void state_sheets_1(){
+	} 	void sheets_1(){
 		text.text = "Still doesn't look as nice as the bed you had back at your parent's house. " +
 			"\n\n" +
 				"Press R to return to roaming your cell";
@@ -87,7 +87,7 @@ public class TextController : MonoBehaviour {
 		}
 	}
 
-	void state_lock_0(){
+	void lock_0(){
 		text.text = "You get closer to the lock, but can't see much of it." +
 			"The angle is simply not very good \n\n" +
 				"Press R to return to roaming your cell";
@@ -97,20 +97,20 @@ public class TextController : MonoBehaviour {
 		}
 	}
 
-	void state_lock_1(){
+	void lock_1(){
 		text.text = "Now you can see the lock properly. You examine it closely with the mirror " +
 			"and find that someone left the key inside the lock! \n\n" +
 				"Press O to Open the lock, or R to return to roaming your cell";
 		
 		if(Input.GetKeyDown(KeyCode.O)){
-			myState = States.freedom;
+			myState = States.corridor_0;
 		} else if (Input.GetKeyDown(KeyCode.R)){
 			myState = States.cell_mirror;
 		}
 	}
 
-	void state_freedom(){
-		text.text = "FREEDOM! It tastes good \n\n" +
+	void corridor_0(){
+		text.text = "You are in a corridor for now \n\n" +
 				"Press P to play this varied game again!";
 		
 		if(Input.GetKeyDown(KeyCode.P)){
